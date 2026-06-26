@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shahab Almasi — Steel Structure Detailing</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --steel:    #1C2B3A;
+      --rust:     #C0522B;
+      --beam:     #4A7FA5;
+      --chalk:    #F2EFE9;
+      --mid:      #8A9BAB;
+      --card-bg:  #FFFFFF;
+      --border:   #D8D2C8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--chalk);
+      color: var(--steel);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ───────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--steel);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 2rem;
+      height: 52px;
+      border-bottom: 3px solid var(--rust);
+    }
+    .nav-logo {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: .85rem; font-weight: 600;
+      color: var(--chalk); letter-spacing: .08em;
+    }
+    .nav-links { display: flex; gap: 1.8rem; }
+    .nav-links a {
+      color: var(--mid); text-decoration: none;
+      font-size: .8rem; letter-spacing: .06em; text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--chalk); }
+
+    /* ── HERO ──────────────────────────────────────── */
+    .hero {
+      background: var(--steel);
+      padding: 5rem 2rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      max-width: 960px; margin: 0 auto;
+    }
+    .hero-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: .75rem; color: var(--rust);
+      letter-spacing: .12em; text-transform: uppercase;
+      margin-bottom: .75rem;
+    }
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 600; color: var(--chalk);
+      line-height: 1.15; letter-spacing: -.02em;
+    }
+    h1 span { color: var(--beam); }
+    .hero-sub {
+      margin-top: 1rem;
+      color: var(--mid); font-size: 1rem; font-weight: 300;
+      max-width: 480px;
+    }
+    .hero-cta {
+      margin-top: 2rem; display: flex; gap: .75rem; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block; padding: .6rem 1.4rem;
+      border-radius: 2px; font-size: .85rem; font-weight: 500;
+      text-decoration: none; cursor: pointer; transition: opacity .2s;
+    }
+    .btn-primary   { background: var(--rust); color: #fff; border: none; }
+    .btn-secondary { background: transparent; color: var(--chalk); border: 1px solid var(--mid); }
+    .btn:hover { opacity: .85; }
+
+    /* metric strip */
+    .metrics {
+      display: flex; flex-direction: column; gap: 1.5rem;
+      border-left: 2px solid var(--rust); padding-left: 1.5rem;
+      align-self: center;
+    }
+    .metric-val {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.6rem; font-weight: 600; color: var(--chalk); line-height: 1;
+    }
+    .metric-lbl { font-size: .7rem; color: var(--mid); letter-spacing: .08em; text-transform: uppercase; }
+
+    /* ── MAIN LAYOUT ───────────────────────────────── */
+    main { max-width: 960px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+    section { margin-bottom: 4rem; }
+    .section-title {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: .7rem; font-weight: 600;
+      color: var(--rust); letter-spacing: .14em; text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      padding-bottom: .5rem; border-bottom: 1px solid var(--border);
+    }
+
+    /* ── SKILLS GRID ───────────────────────────────── */
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;
+    }
+    .skill-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 3px; padding: 1rem 1.1rem;
+    }
+    .skill-name { font-weight: 600; font-size: .9rem; margin-bottom: .2rem; }
+    .skill-level { font-size: .75rem; color: var(--mid); }
+    .skill-bar {
+      height: 3px; background: var(--border); margin-top: .6rem; border-radius: 2px;
+    }
+    .skill-fill { height: 100%; background: var(--beam); border-radius: 2px; }
+
+    /* ── PROJECTS ──────────────────────────────────── */
+    .projects-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem;
+    }
+    .project-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 3px; padding: 1.4rem;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .project-card:hover {
+      border-color: var(--beam);
+      box-shadow: 0 4px 16px rgba(28,43,58,.08);
+    }
+    .project-tag {
+      display: inline-block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: .65rem; font-weight: 600;
+      color: var(--rust); letter-spacing: .1em; text-transform: uppercase;
+      border: 1px solid var(--rust); border-radius: 2px;
+      padding: .15rem .5rem; margin-bottom: .75rem;
+    }
+    .project-title { font-size: 1rem; font-weight: 600; margin-bottom: .4rem; }
+    .project-desc  { font-size: .85rem; color: #4A5568; line-height: 1.55; }
+    .project-meta  { margin-top: .9rem; display: flex; gap: .6rem; flex-wrap: wrap; }
+    .tag-chip {
+      font-size: .7rem; background: #EFF4F8; color: var(--beam);
+      border-radius: 2px; padding: .2rem .55rem; font-weight: 500;
+    }
+
+    /* ── FILES SECTION ─────────────────────────────── */
+    .files-note {
+      background: #EFF4F8; border-left: 3px solid var(--beam);
+      padding: 1rem 1.25rem; border-radius: 0 3px 3px 0;
+      font-size: .85rem; color: #2D4A5E; margin-bottom: 1.25rem;
+    }
+    .files-note code {
+      font-family: 'IBM Plex Mono', monospace; font-size: .8rem;
+      background: #D6E8F5; padding: .1rem .35rem; border-radius: 2px;
+    }
+
+    /* ── CONTACT ───────────────────────────────────── */
+    .contact-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .contact-item {
+      display: flex; align-items: center; gap: .5rem;
+      font-size: .875rem; color: var(--steel); text-decoration: none;
+    }
+    .contact-item:hover { color: var(--beam); }
+    .contact-icon { font-size: 1rem; }
+
+    /* ── FOOTER ────────────────────────────────────── */
+    footer {
+      background: var(--steel); color: var(--mid);
+      text-align: center; padding: 1.5rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: .7rem; letter-spacing: .06em;
+    }
+
+    /* ── RESPONSIVE ────────────────────────────────── */
+    @media (max-width: 600px) {
+      .hero { grid-template-columns: 1fr; }
+      .metrics { flex-direction: row; border-left: none; padding-left: 0;
+                 border-top: 2px solid var(--rust); padding-top: 1.5rem; }
+      .nav-links { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">SHA // ALMASI</span>
+  <div class="nav-links">
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div style="background: var(--steel);">
+  <div class="hero">
+    <div>
+      <p class="hero-eyebrow">Steel Structure Detailing Engineer</p>
+      <h1>Shahab<br><span>Almasi</span></h1>
+      <p class="hero-sub">6+ years of heavy industrial and power plant steel detailing. Tekla Structures specialist — from 3D model to CNC-ready fabrication package.</p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="https://linkedin.com/in/shahabalmasi" target="_blank" class="btn btn-secondary">LinkedIn</a>
+        <a href="https://github.com/shalmasi" target="_blank" class="btn btn-secondary">GitHub</a>
+      </div>
+    </div>
+    <div class="metrics">
+      <div>
+        <div class="metric-val">12K+</div>
+        <div class="metric-lbl">Tons delivered</div>
+      </div>
+      <div>
+        <div class="metric-val">5+</div>
+        <div class="metric-lbl">Years as tech lead</div>
+      </div>
+      <div>
+        <div class="metric-val">200</div>
+        <div class="metric-lbl">Tons / month</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-title">Project Portfolio</p>
+
+    <div class="files-note">
+      Project files (shop drawings, NC/DSTV exports, Tekla screenshots) are hosted directly in this repository.
+      Browse them via the <code>projects/</code> folder or click the links below.
+    </div>
+
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <span class="project-tag">Power Plant</span>
+        <div class="project-title">Multi-Lot Power Plant — Bushehr</div>
+        <p class="project-desc">Structural steelwork and embedded parts across 5 construction lots. Complete shop drawing packages compliant with GOST/SP standards.</p>
+        <div class="project-meta">
+          <span class="tag-chip">Tekla Structures</span>
+          <span class="tag-chip">GOST/SP</span>
+          <span class="tag-chip">IFC</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-tag">Industrial</span>
+        <div class="project-title">Heavy Industrial Frames — Sepehr Foulad Ako</div>
+        <p class="project-desc">Multi-story steel frames for fabrication facility. NC/DSTV export for CNC cutting, plate nesting optimization, bolt & part scheduling.</p>
+        <div class="project-meta">
+          <span class="tag-chip">NC/DSTV</span>
+          <span class="tag-chip">AISC 360</span>
+          <span class="tag-chip">Nesting</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-tag">Process Plant</span>
+        <div class="project-title">Complex Process Plant Steelwork</div>
+        <p class="project-desc">Process plant pipe racks and equipment platforms. Constructability review, anchor bolt compensation, field-friendly connections.</p>
+        <div class="project-meta">
+          <span class="tag-chip">AISC 341</span>
+          <span class="tag-chip">ASCE 7</span>
+          <span class="tag-chip">IDEA StatiCa</span>
+        </div>
+      </div>
+
+      <!-- Placeholder card — user can clone and fill in -->
+      <div class="project-card" style="border-style:dashed; opacity:.55;">
+        <span class="project-tag">Add Project</span>
+        <div class="project-title">Your Next Project</div>
+        <p class="project-desc">Upload drawings, screenshots, or NC files to the <code style="font-size:.8rem">projects/</code> folder in this repo and update this card.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="section-title">Technical Skills</p>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-name">Tekla Structures</div>
+        <div class="skill-level">Advanced — 2017 / 2024</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">AISC 360 / 341</div>
+        <div class="skill-level">Steel & Seismic Design</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">GOST / SP Standards</div>
+        <div class="skill-level">Russian Structural Codes</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">IDEA StatiCa</div>
+        <div class="skill-level">Connection Design</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">ETABS / SAP2000</div>
+        <div class="skill-level">Structural Analysis</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">NC/DSTV + Nesting</div>
+        <div class="skill-level">CNC & Material Optimization</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">AutoCAD</div>
+        <div class="skill-level">2D Layout / As-builts</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">Trimble Connect</div>
+        <div class="skill-level">Remote BIM Coordination</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-title">Contact</p>
+    <div class="contact-row">
+      <a href="mailto:sh.almasi@gmail.com" class="contact-item">
+        <span class="contact-icon">✉</span> sh.almasi@gmail.com
+      </a>
+      <a href="https://linkedin.com/in/shahabalmasi" target="_blank" class="contact-item">
+        <span class="contact-icon">🔗</span> linkedin.com/in/shahabalmasi
+      </a>
+      <a href="https://github.com/shalmasi" target="_blank" class="contact-item">
+        <span class="contact-icon">⌥</span> github.com/shalmasi
+      </a>
+      <span class="contact-item">
+        <span class="contact-icon">📍</span> Hamedan, Iran — UTC+3:30 — Remote-Ready
+      </span>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © 2025 Shahab Almasi &nbsp;·&nbsp; Steel Structure Detailing Engineer &nbsp;·&nbsp; shalmasi @ github
+</footer>
+
+</body>
+</html>
