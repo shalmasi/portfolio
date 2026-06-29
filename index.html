@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shahab Shalmasi — Steel Structure Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0A0E14;
+      --surface:   #111820;
+      --card:      #161D27;
+      --border:    #1E2D3D;
+      --blue:      #1B6FDB;
+      --blue-dim:  #143F7A;
+      --amber:     #F0A500;
+      --amber-dim: #7A5200;
+      --text:      #CDD9E5;
+      --muted:     #6B7F8E;
+      --white:     #E8EDF2;
+      --grid-line: rgba(30, 109, 219, 0.07);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── engineering grid background ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+        linear-gradient(rgba(30,109,219,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30,109,219,0.03) 1px, transparent 1px);
+      background-size: 80px 80px, 80px 80px, 20px 20px, 20px 20px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── layout ── */
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+    /* ── nav ── */
+    nav {
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,14,20,0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    .nav-brand {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--blue);
+      letter-spacing: 0.05em;
+    }
+    .nav-brand span { color: var(--amber); }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    /* ── hero ── */
+    .hero {
+      padding: 96px 0 72px;
+      position: relative;
+    }
+    .hero-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--blue);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--blue);
+    }
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(36px, 6vw, 62px);
+      font-weight: 700;
+      line-height: 1.08;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--blue);
+    }
+    .hero-sub {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 24px 0 40px;
+      line-height: 1.7;
+    }
+    .hero-meta {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .meta-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .meta-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    /* corner decoration */
+    .hero-corner {
+      position: absolute;
+      top: 80px;
+      right: 0;
+      width: 280px;
+      height: 280px;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    /* ── section ── */
+    section { padding: 64px 0; }
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 16px;
+    }
+    .section-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--amber);
+      letter-spacing: 0.1em;
+    }
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: -0.01em;
+    }
+
+    /* ── project grid ── */
+    .projects { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-color .25s, transform .25s;
+      position: relative;
+    }
+    .project-card:hover {
+      border-color: var(--blue-dim);
+      transform: translateY(-2px);
+    }
+    .project-card:hover .card-accent { width: 100%; }
+
+    .card-accent {
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue), var(--amber));
+      width: 0;
+      transition: width .4s ease;
+    }
+
+    .card-body { padding: 24px; }
+    .card-index {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 14px;
+      line-height: 1.3;
+    }
+    .card-files {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+    .file-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 3px 9px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+    .file-tag.dwg  { border-color: #1B4F72; color: #5DADE2; }
+    .file-tag.pdf  { border-color: #7B241C; color: #E74C3C; }
+    .file-tag.tekla{ border-color: #1D5F3A; color: #2ECC71; }
+    .file-tag.img  { border-color: #5B2C6F; color: #A569BD; }
+
+    .card-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: all .2s;
+      border: 1px solid transparent;
+    }
+    .btn-primary {
+      background: var(--blue-dim);
+      border-color: var(--blue);
+      color: #90C8FF;
+    }
+    .btn-primary:hover { background: var(--blue); color: #fff; }
+    .btn-ghost {
+      background: transparent;
+      border-color: var(--border);
+      color: var(--muted);
+    }
+    .btn-ghost:hover { border-color: var(--muted); color: var(--white); }
+
+    /* ── skills table ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+    }
+    .skill-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .skill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--blue);
+      flex-shrink: 0;
+    }
+    .skill-dot.amber { background: var(--amber); }
+    .skill-dot.green { background: #2ECC71; }
+    .skill-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .skill-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── contact ── */
+    .contact-bar {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .contact-text h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .contact-text p { font-size: 13px; color: var(--muted); }
+    .contact-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn-amber {
+      background: var(--amber-dim);
+      border: 1px solid var(--amber);
+      color: #FBBF24;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border-radius: 5px;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all .2s;
+    }
+    .btn-amber:hover { background: var(--amber); color: #000; }
+
+    /* ── footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+      margin-top: 24px;
+    }
+    footer .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    footer p {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+    footer a { color: var(--blue); text-decoration: none; }
+
+    /* ── divider ── */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 4px 0;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 32px; }
+      .hero-meta { gap: 20px; }
+      .contact-bar { flex-direction: column; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="wrap">
+    <div class="nav-brand">shalmasi <span>/</span> portfolio</div>
+    <div class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+      <a href="https://github.com/shalmasi/portfolio" target="_blank">GitHub ↗</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="wrap">
+  <div class="hero">
+
+    <!-- SVG corner: isometric steel frame -->
+    <svg class="hero-corner" viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="40" y="20" width="6" height="240" fill="#1B6FDB"/>
+      <rect x="100" y="40" width="6" height="220" fill="#1B6FDB"/>
+      <rect x="160" y="10" width="6" height="250" fill="#1B6FDB"/>
+      <rect x="220" y="30" width="6" height="230" fill="#1B6FDB"/>
+      <rect x="30" y="60" width="230" height="4" fill="#F0A500"/>
+      <rect x="30" y="120" width="230" height="4" fill="#F0A500"/>
+      <rect x="30" y="180" width="230" height="4" fill="#F0A500"/>
+      <rect x="30" y="240" width="230" height="4" fill="#F0A500"/>
+      <line x1="40" y1="20" x2="220" y2="30" stroke="#1B6FDB" stroke-width="1" stroke-dasharray="4 4"/>
+      <line x1="40" y1="260" x2="220" y2="260" stroke="#1B6FDB" stroke-width="1" stroke-dasharray="4 4"/>
+      <circle cx="40" cy="60" r="4" fill="#F0A500"/>
+      <circle cx="100" cy="60" r="4" fill="#F0A500"/>
+      <circle cx="160" cy="60" r="4" fill="#F0A500"/>
+      <circle cx="226" cy="60" r="4" fill="#F0A500"/>
+      <circle cx="40" cy="120" r="4" fill="#F0A500"/>
+      <circle cx="100" cy="120" r="4" fill="#F0A500"/>
+      <circle cx="160" cy="120" r="4" fill="#F0A500"/>
+      <circle cx="226" cy="120" r="4" fill="#F0A500"/>
+      <circle cx="40" cy="180" r="4" fill="#F0A500"/>
+      <circle cx="100" cy="180" r="4" fill="#F0A500"/>
+      <circle cx="160" cy="180" r="4" fill="#F0A500"/>
+      <circle cx="226" cy="180" r="4" fill="#F0A500"/>
+    </svg>
+
+    <div class="hero-tag">Steel Structure Detailing Engineer</div>
+    <h1>Structural<br/><em>Precision</em><br/>in Every Joint</h1>
+    <p class="hero-sub">
+      Senior detailer with hands-on experience in large-scale prefabricated steelwork,
+      power plant structures, and industrial facilities — delivering fabrication-ready shop drawings.
+    </p>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <span class="meta-label">Experience</span>
+        <span class="meta-value">6+ Years</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Status</span>
+        <span class="meta-value" style="color:var(--amber);">Remote-Ready ✦</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Timezone</span>
+        <span class="meta-value">UTC +3:30</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Location</span>
+        <span class="meta-value">Hamedan, Iran</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <span class="section-title">Project Portfolio</span>
+    </div>
+
+    <div class="projects">
+
+      <!-- Color Company 1 -->
+      <div class="project-card">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="card-index">PROJECT · CCP-01</div>
+          <div class="card-title">Color Company Project 1</div>
+          <div class="card-files">
+            <span class="file-tag dwg">⬡ DWG</span>
+            <span class="file-tag pdf">⬡ PDF</span>
+            <span class="file-tag tekla">⬡ Tekla</span>
+            <span class="file-tag img">⬡ Images</span>
+          </div>
+          <div class="card-links">
+            <a class="btn-link btn-primary" href="https://github.com/shalmasi/portfolio/tree/main/Color%20Company%20Project%201" target="_blank">↗ View Files</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Color Company 2 -->
+      <div class="project-card">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="card-index">PROJECT · CCP-02</div>
+          <div class="card-title">Color Company Project 2</div>
+          <div class="card-files">
+            <span class="file-tag dwg">⬡ DWG</span>
+            <span class="file-tag pdf">⬡ PDF</span>
+            <span class="file-tag tekla">⬡ Tekla</span>
+            <span class="file-tag img">⬡ Images</span>
+          </div>
+          <div class="card-links">
+            <a class="btn-link btn-primary" href="https://github.com/shalmasi/portfolio/tree/main/Color%20Company%20Project%202" target="_blank">↗ View Files</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Color Company 3 -->
+      <div class="project-card">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="card-index">PROJECT · CCP-03</div>
+          <div class="card-title">Color Company Project 3</div>
+          <div class="card-files">
+            <span class="file-tag dwg">⬡ DWG</span>
+            <span class="file-tag pdf">⬡ PDF</span>
+            <span class="file-tag tekla">⬡ Tekla</span>
+            <span class="file-tag img">⬡ Images</span>
+          </div>
+          <div class="card-links">
+            <a class="btn-link btn-primary" href="https://github.com/shalmasi/portfolio/tree/main/Color%20Company%20Project%203" target="_blank">↗ View Files</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Industrial Project -->
+      <div class="project-card">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="card-index">PROJECT · IND-01</div>
+          <div class="card-title">Industrial Project</div>
+          <div class="card-files">
+            <span class="file-tag dwg">⬡ DWG</span>
+            <span class="file-tag pdf">⬡ PDF</span>
+            <span class="file-tag tekla">⬡ Tekla</span>
+            <span class="file-tag img">⬡ Images</span>
+          </div>
+          <div class="card-links">
+            <a class="btn-link btn-primary" href="https://github.com/shalmasi/portfolio/tree/main/Industrial%20Project" target="_blank">↗ View Files</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <span class="section-title">Software</span>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-item">
+        <div class="skill-dot"></div>
+        <div>
+          <div class="skill-name">Tekla Structures</div>
+          <div class="skill-sub">2017 / 2024 — Advanced</div>
+        </div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-dot"></div>
+        <div>
+          <div class="skill-name">AutoCAD</div>
+          <div class="skill-sub">2D Drafting & As-Built</div>
+        </div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-dot amber"></div>
+        <div>
+          <div class="skill-name">ETABS</div>
+          <div class="skill-sub">Structural Analysis</div>
+        </div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-dot amber"></div>
+        <div>
+          <div class="skill-name">SAP2000</div>
+          <div class="skill-sub">Structural Analysis</div>
+        </div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-dot amber"></div>
+        <div>
+          <div class="skill-name">SAFE</div>
+          <div class="skill-sub">Slab & Foundation</div>
+        </div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-dot green"></div>
+        <div>
+          <div class="skill-name">IDEA StatiCa</div>
+          <div class="skill-sub">Connection Design</div>
+        </div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-dot green"></div>
+        <div>
+          <div class="skill-name">Trimble Connect</div>
+          <div class="skill-sub">BIM Coordination</div>
+        </div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-dot"></div>
+        <div>
+          <div class="skill-name">MS Office</div>
+          <div class="skill-sub">Reports & BOQ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <span class="section-title">Open to Remote Opportunities</span>
+    </div>
+    <div class="contact-bar">
+      <div class="contact-text">
+        <h3>Available for International Detailing Projects</h3>
+        <p>Prefabricated steel fabrication plants · International detailing offices · Remote-first teams</p>
+      </div>
+      <div class="contact-actions">
+        <a class="btn-amber" href="https://linkedin.com/in/shahabalmasi" target="_blank">in LinkedIn</a>
+        <a class="btn-link btn-ghost" href="mailto:sh.almasi@gmail.com">✉ sh.almasi@gmail.com</a>
+        <a class="btn-link btn-ghost" href="tel:+989187007442">📞 +98 918 700 7442</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <p>© 2026 <a href="https://github.com/shalmasi">shalmasi</a> · Steel Structure Detailing Engineer</p>
+    <p style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);">shalmasi.github.io/portfolio</p>
+  </div>
+</footer>
+
+</body>
+</html>
